@@ -2,5 +2,6 @@ numpy
 opencv-python
 matplotlib
 pyqt5
-PIL
+pillow
 keyboard
+pyinstaller

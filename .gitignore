@@ -4,3 +4,6 @@ dist
 Pipfile
 Pipfile.lock
 get-pip.py
+output
+*.pyc
+__pycache__
