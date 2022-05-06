@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --add-data "DataGrabber/img/*.*;." -F -Dw main.py 

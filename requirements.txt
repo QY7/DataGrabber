@@ -1,0 +1,6 @@
+numpy
+opencv-python
+matplotlib
+pyqt5
+PIL
+keyboard

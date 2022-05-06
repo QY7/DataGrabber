@@ -16,9 +16,18 @@ from enum import Enum
 import os
 from .find_contour import find_box
 import keyboard
+import json
 
-ICON_PICKER = os.path.dirname(__file__)+'/img/picker.png'
-ICON_ERASER = os.path.dirname(__file__)+'/img/eraser_rect.png'
+
+def get_path(filename):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, filename)
+    else:
+        return os.path.dirname(__file__)+f'/img/{filename}'
+
+ICON_PICKER = get_path('picker.png')
+ICON_ERASER = get_path('eraser_rect.png')
+ICON_LOGO = get_path('logo.ico')
 class AxisType(Enum):
     LINEAR = 1
     LOG = 2
@@ -442,11 +451,11 @@ class mywindow(QMainWindow,Ui_MainWindow):
         mapped_data = self.data_mapping(extracted_data,tailored_mask.shape[1],tailored_mask.shape[0])
         if(_plot):
             self.plot_value()
-        self.add_curve_to_list(mapped_data)
+        # self.add_curve_to_list(mapped_data)
         return mapped_data
 
-    def add_curve_to_list(self,data):
-        curve_idx = f'{self.color_set_hex}{self.curve_idx}'
+    def add_curve_to_list(self,data,name):
+        curve_idx = name
         if curve_idx not in self.result_list.keys():
             self.result_list[curve_idx] = data
         self.update_info('Curve added')
@@ -463,11 +472,13 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.label_img.setCursor(QtGui.QCursor(cursor_qmap_scaled,-1,-1))
 
     def export_data(self):
-        try:
-            filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)")
-            savetxt(filename[0],self.result,delimiter=';')
-        except:
-            return
+        filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)")[0]
+        
+        for key,value in self.result_list.items():
+            # print(value)
+            filename = f"{filename[:-4]}_{key}.txt"
+            print(filename)
+            savetxt(f"{filename}",value,delimiter=';')
 
     def import_img(self):
         # try:
@@ -496,9 +507,11 @@ class mywindow(QMainWindow,Ui_MainWindow):
                 self.horizontalSlider_eraser.setProperty("value", current_value+1)
                 print('] pressed')
     def add_curve(self):
-        self.curve_idx+=1
-        data = self.color_extractor(_plot=False)
-        self.add_curve_to_list(data)
+        curve_name,done = QtWidgets.QInputDialog.getText(self, 'Input curve name', "Name")
+        if(done):
+            self.curve_idx+=1
+            data = self.color_extractor(_plot=False)
+            self.add_curve_to_list(data,curve_name)
 
     def plot_value(self):
         plt.figure(figsize=(5,5))
@@ -514,7 +527,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         plt.ylabel("y")
         plt.title("Extract Data")
         plt.grid(True,which='both',ls='--')
-
+        plt.legend(self.result_list.keys())
         plt.show()
 
 def datagrabber():
@@ -524,5 +537,5 @@ def datagrabber():
     window.show()
     keyboard.on_press(window.keyboardEventReceived)
     window.setWindowTitle("DataGrabber")
-    window.setWindowIcon(QIcon(os.path.dirname(__file__)+'/img/logo.ico'))
+    window.setWindowIcon(QIcon(ICON_LOGO))
     sys.exit(app.exec_())
