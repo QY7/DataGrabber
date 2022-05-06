@@ -1,1 +1,1 @@
-pyinstaller --noconfirm --add-data "DataGrabber/img/*.*;." -Fw main.py 
+pyinstaller --noconfirm --add-data "DataGrabber/img/*.*;."  --upx-dir=D:\YuQi\Desktop\upx-3.96-win64 -F -Dw main.py 
