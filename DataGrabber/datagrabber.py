@@ -6,7 +6,7 @@ from numpy import array,savetxt, size,tile,newaxis
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-from .ui import Ui_MainWindow
+from ui import Ui_MainWindow
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -14,7 +14,7 @@ from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from enum import Enum
 import os
-from .find_contour import find_box
+from find_contour import find_box
 import keyboard
 import json
 
@@ -50,8 +50,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.pushButton_load.clicked.connect(self.load_img_from_clipboard)
         self.pushButton_add.clicked.connect(self.add_curve)
         self.horizontalSlider_eraser.valueChanged.connect(self.change_eraser)
-        self.actionExport.triggered.connect(self.export_data)
-        self.actionImport.triggered.connect(self.import_img)
+        # self.actionExport.triggered.connect(self.export_data)
+        # self.actionImport.triggered.connect(self.import_img)
         # self.setaxis.clicked.connect(self.tailor_img)
         self.leftbottom.clicked.connect(self.set_to_left)
         self.righttop.clicked.connect(self.set_to_right)
@@ -79,7 +79,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
             img = cv2.imread(file)
         except:
             print("Error Loading")
-        img = self.image_resize(img,height=500)
+        img = self.image_resize(img,height=400)
         self.image_height,self.image_width = img.shape[0:2]
         self.current_img = img
         self.position_mode = 'leftbottom'
@@ -92,7 +92,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.pushButton_picker.setEnabled(True)
         self.pushButton_eraser.setEnabled(True)
     
-        self.result_list = []
+        self.result_list = {}
         self.curve_idx = 0
 
     def load_img_from_clipboard(self):
@@ -507,7 +507,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
                 self.horizontalSlider_eraser.setProperty("value", current_value+1)
                 print('] pressed')
     def add_curve(self):
-        curve_name,done = QtWidgets.QInputDialog.getText(self, 'Input curve name', "Name")
+        curve_name,done = QtWidgets.QInputDialog.getText(self, 'Info', "Input curve name")
         if(done):
             self.curve_idx+=1
             data = self.color_extractor(_plot=False)
@@ -539,3 +539,5 @@ def datagrabber():
     window.setWindowTitle("DataGrabber")
     window.setWindowIcon(QIcon(ICON_LOGO))
     sys.exit(app.exec_())
+if __name__ == '__main__':
+    datagrabber()

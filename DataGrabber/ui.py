@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './pgetdata.ui'
+# Form implementation generated from reading ui file './DataGrabber.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,9 +14,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(738, 805)
+        MainWindow.resize(740, 792)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        MainWindow.setFont(font)
         MainWindow.setStyleSheet("*{\n"
 "}\n"
+"\n"
 "QCheckBox{\n"
 "font-family:Arial;\n"
 "font-size:15px;\n"
@@ -34,18 +38,18 @@ class Ui_MainWindow(object):
 "\n"
 "#pushButton_load,#pushButton_picker,#pushButton_start,#pushButton_eraser,#pushButton_reset,#pushButton_add\n"
 "{\n"
-"color:white;\n"
-"background:    #aaa;\n"
+"background:    white;\n"
 "font-weight:bold;\n"
-"font-size:13px;\n"
+"font-size:15px;\n"
 "border-radius:5px;\n"
 "font-family:Arial;\n"
 "}\n"
 "#pushButton_load:hover,#pushButton_picker:hover,#pushButton_start:hover,#pushButton_reset:hover,#pushButton_add:hover,#pushButton_eraser:hover{\n"
-"background:    #3498db;\n"
+"background:    orange;\n"
 "}\n"
 "QLineEdit{\n"
 "border-radius:4px;\n"
+"background:white;\n"
 "}\n"
 "#label_info{\n"
 "color:white;\n"
@@ -85,6 +89,7 @@ class Ui_MainWindow(object):
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem3, 2, 1, 1, 1)
         self.label_img = QtWidgets.QLabel(self.centralwidget)
+        self.label_img.setMinimumSize(QtCore.QSize(0, 400))
         self.label_img.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
         self.label_img.setObjectName("label_img")
         self.gridLayout.addWidget(self.label_img, 1, 1, 1, 1)
@@ -292,6 +297,8 @@ class Ui_MainWindow(object):
         self.horizontalSlider_eraser.setMaximum(100)
         self.horizontalSlider_eraser.setProperty("value", 20)
         self.horizontalSlider_eraser.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalSlider_eraser.setInvertedAppearance(False)
+        self.horizontalSlider_eraser.setTickPosition(QtWidgets.QSlider.NoTicks)
         self.horizontalSlider_eraser.setObjectName("horizontalSlider_eraser")
         self.gridLayout_2.addWidget(self.horizontalSlider_eraser, 1, 1, 1, 1)
         self.horizontalSlider_morph = QtWidgets.QSlider(self.centralwidget)
@@ -332,13 +339,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(3)
         sizePolicy.setHeightForWidth(self.pushButton_load.sizePolicy().hasHeightForWidth())
         self.pushButton_load.setSizePolicy(sizePolicy)
-        self.pushButton_load.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_load.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_load.setFont(font)
+        self.pushButton_load.setStyleSheet("icon:url(:/grabber/load.png)")
         self.pushButton_load.setObjectName("pushButton_load")
         self.horizontalLayout_10.addWidget(self.pushButton_load)
         self.pushButton_picker = QtWidgets.QPushButton(self.centralwidget)
@@ -347,14 +355,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(3)
         sizePolicy.setHeightForWidth(self.pushButton_picker.sizePolicy().hasHeightForWidth())
         self.pushButton_picker.setSizePolicy(sizePolicy)
-        self.pushButton_picker.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_picker.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_picker.setFont(font)
-        self.pushButton_picker.setStyleSheet("")
+        self.pushButton_picker.setStyleSheet("icon:url(:/grabber/color-picker.png)")
         self.pushButton_picker.setObjectName("pushButton_picker")
         self.horizontalLayout_10.addWidget(self.pushButton_picker)
         self.pushButton_eraser = QtWidgets.QPushButton(self.centralwidget)
@@ -363,14 +371,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(3)
         sizePolicy.setHeightForWidth(self.pushButton_eraser.sizePolicy().hasHeightForWidth())
         self.pushButton_eraser.setSizePolicy(sizePolicy)
-        self.pushButton_eraser.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_eraser.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_eraser.setFont(font)
-        self.pushButton_eraser.setStyleSheet("")
+        self.pushButton_eraser.setStyleSheet("icon:url(:/grabber/eraser_2.png)")
         self.pushButton_eraser.setObjectName("pushButton_eraser")
         self.horizontalLayout_10.addWidget(self.pushButton_eraser)
         self.pushButton_add = QtWidgets.QPushButton(self.centralwidget)
@@ -379,14 +387,14 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(3)
         sizePolicy.setHeightForWidth(self.pushButton_add.sizePolicy().hasHeightForWidth())
         self.pushButton_add.setSizePolicy(sizePolicy)
-        self.pushButton_add.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_add.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_add.setFont(font)
-        self.pushButton_add.setStyleSheet("")
+        self.pushButton_add.setStyleSheet("icon:url(:/grabber/下载.png)")
         self.pushButton_add.setObjectName("pushButton_add")
         self.horizontalLayout_10.addWidget(self.pushButton_add)
         self.pushButton_start = QtWidgets.QPushButton(self.centralwidget)
@@ -395,20 +403,20 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(3)
         sizePolicy.setHeightForWidth(self.pushButton_start.sizePolicy().hasHeightForWidth())
         self.pushButton_start.setSizePolicy(sizePolicy)
-        self.pushButton_start.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_start.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_start.setFont(font)
-        self.pushButton_start.setStyleSheet("")
+        self.pushButton_start.setStyleSheet("icon:url(:/grabber/3596215.png)")
         self.pushButton_start.setObjectName("pushButton_start")
         self.horizontalLayout_10.addWidget(self.pushButton_start)
         self.verticalLayout.addLayout(self.horizontalLayout_10)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 738, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 740, 22))
         self.menubar.setObjectName("menubar")
         self.menuhelp = QtWidgets.QMenu(self.menubar)
         self.menuhelp.setObjectName("menuhelp")
@@ -435,7 +443,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "DataGrabber"))
         self.label_info.setText(_translate("MainWindow", "STEP1: Load Graph"))
         self.label_img.setText(_translate("MainWindow", "Label_img"))
         self.leftbottom.setText(_translate("MainWindow", "left bottom"))
@@ -453,13 +461,14 @@ class Ui_MainWindow(object):
         self.checkBox_logy.setText(_translate("MainWindow", "Logy"))
         self.label_5.setText(_translate("MainWindow", "Morph"))
         self.label.setText(_translate("MainWindow", "Eraser"))
-        self.pushButton_load.setText(_translate("MainWindow", "Load"))
-        self.pushButton_picker.setText(_translate("MainWindow", "Picker"))
-        self.pushButton_eraser.setText(_translate("MainWindow", "Eraser"))
-        self.pushButton_add.setText(_translate("MainWindow", "Add"))
-        self.pushButton_start.setText(_translate("MainWindow", "Go"))
+        self.pushButton_load.setText(_translate("MainWindow", "load"))
+        self.pushButton_picker.setText(_translate("MainWindow", "picker"))
+        self.pushButton_eraser.setText(_translate("MainWindow", "eraser"))
+        self.pushButton_add.setText(_translate("MainWindow", "add"))
+        self.pushButton_start.setText(_translate("MainWindow", "preview"))
         self.menuhelp.setTitle(_translate("MainWindow", "help"))
         self.menufile.setTitle(_translate("MainWindow", "file"))
         self.actionAbout.setText(_translate("MainWindow", "V1.0"))
         self.actionExport.setText(_translate("MainWindow", "Export"))
         self.actionImport.setText(_translate("MainWindow", "Import"))
+import Datagrabber_rc

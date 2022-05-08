@@ -1,2 +1,2 @@
-from DataGrabber.datagrabber import datagrabber
+from DataGrabber import datagrabber
 datagrabber()
