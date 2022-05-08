@@ -6,7 +6,7 @@ from numpy import array,savetxt, size,tile,newaxis
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-from ui import Ui_MainWindow
+from .ui import Ui_MainWindow
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -14,7 +14,7 @@ from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from enum import Enum
 import os
-from find_contour import find_box
+from .find_contour import find_box
 import keyboard
 import json
 
@@ -50,8 +50,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.pushButton_load.clicked.connect(self.load_img_from_clipboard)
         self.pushButton_add.clicked.connect(self.add_curve)
         self.horizontalSlider_eraser.valueChanged.connect(self.change_eraser)
-        # self.actionExport.triggered.connect(self.export_data)
-        # self.actionImport.triggered.connect(self.import_img)
+        self.actionExport.triggered.connect(self.export_data)
+        self.actionImport.triggered.connect(self.import_img)
         # self.setaxis.clicked.connect(self.tailor_img)
         self.leftbottom.clicked.connect(self.set_to_left)
         self.righttop.clicked.connect(self.set_to_right)
@@ -62,7 +62,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
         self.pushButton_eraser.setEnabled(False)
         self.pushButton_picker.setEnabled(False)
-        self.pushButton_start.setEnabled(False)
+        self.pushButton_start.setEnabled(True)
         self.leftbottom.setEnabled(False)
         self.righttop.setEnabled(False)
         self.auto_axis.setEnabled(False)
@@ -428,7 +428,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
     def color_picker(self):
         self.label_img.mousePressEvent = self.pick_color
-        self.pushButton_start.setEnabled(False)
+        self.pushButton_start.setEnabled(True)
         self.update_cursor(ICON_PICKER,40)
         self.label_info.setText("Pick color")
         self.system_state = SystemState.PICKING_COLOR
