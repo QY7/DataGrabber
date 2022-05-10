@@ -1,4 +1,6 @@
 # DataGrabber
+![DataGrabber2](https://user-images.githubusercontent.com/15251079/167558979-57febdde-781a-44d8-80dc-b303473ce44e.gif)
+
 ## method to use
 **Step. 1 Load graph and input the axis information. **
 
