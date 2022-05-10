@@ -1,5 +1,7 @@
 # DataGrabber
 
+DataGrabber is a tool based on opencv to help you extract data from graph and the demo process is shown below.
+
 ![DataGrabber2](https://user-images.githubusercontent.com/15251079/167558979-57febdde-781a-44d8-80dc-b303473ce44e.gif)
 
 ## method to use
