@@ -1,11 +1,14 @@
 # DataGrabber
+
 ![DataGrabber2](https://user-images.githubusercontent.com/15251079/167558979-57febdde-781a-44d8-80dc-b303473ce44e.gif)
 
 ## method to use
-**Step. 1 Load graph and input the axis information. **
+
+**Step. 1 Load graph and input the axis information**
 
 There are two ways to load graph. You can load it from your clipboard or from file. I would recmment you to load graph from clipboard, because it's so convenient. 
 Then you need to input the start and end value for both x and y. Then you need to define the graph border. You can click "auto" to find the graph border automatically and of course, you can set the graph border manually if the program fails. 
+
 **Step. 2 Picking up the curve**
 
 When used in **colorful curve extraction**, use the color picker to pick the color from the graph. Selected curve will become white. Then use the eraser to erase unwanted part.
@@ -21,6 +24,7 @@ Hit "Preview" button to check if everything is fine.
 
 
 **Step4. Export the curve**
+
 Click file->export to export your data.
 
 Have fun!
