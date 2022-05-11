@@ -223,7 +223,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
             return True
         except Exception as e:
             print(e)
-            # QMessageBox.warning(self,"Warning","Invalid input!")
+            QMessageBox.warning(self,"Warning","Invalid input!")
             return False
     def find_color_dict(self):
         width,height,channel = self.current_img.shape
@@ -444,14 +444,17 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.read_config()
         [x1,y2] = self.pos_left_bottom
         [x2,y1] = self.pos_right_top
-
-        tailored_mask = self.mask[y1:y2,x1:x2]
-        extracted_data = self.extract_data(tailored_mask)
-        # 数据点映射坐标
-        mapped_data = self.data_mapping(extracted_data,tailored_mask.shape[1],tailored_mask.shape[0])
-        if(_plot):
-            self.plot_value()
-        # self.add_curve_to_list(mapped_data)
+        try:
+            tailored_mask = self.mask[y1:y2,x1:x2]
+            extracted_data = self.extract_data(tailored_mask)
+            # 数据点映射坐标
+            mapped_data = self.data_mapping(extracted_data,tailored_mask.shape[1],tailored_mask.shape[0])
+            if(_plot):
+                self.plot_value()
+            # self.add_curve_to_list(mapped_data)
+        except:
+            QMessageBox.warning(self,"Warning","Make sure you set the border correctly, hit auto!")
+            return None
         return mapped_data
 
     def add_curve_to_list(self,data,name):
@@ -511,7 +514,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         if(done):
             self.curve_idx+=1
             data = self.color_extractor(_plot=False)
-            self.add_curve_to_list(data,curve_name)
+            if(data is not None):
+                self.add_curve_to_list(data,curve_name)
 
     def plot_value(self):
         plt.figure(figsize=(5,5))
