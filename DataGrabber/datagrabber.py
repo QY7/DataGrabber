@@ -444,11 +444,14 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.read_config()
         [x1,y2] = self.pos_left_bottom
         [x2,y1] = self.pos_right_top
-
-        tailored_mask = self.mask[y1:y2,x1:x2]
-        extracted_data = self.extract_data(tailored_mask)
-        # 数据点映射坐标
-        mapped_data = self.data_mapping(extracted_data,tailored_mask.shape[1],tailored_mask.shape[0])
+        if y1 != y2 and x1 != x2:
+            tailored_mask = self.mask[y1:y2,x1:x2]
+            extracted_data = self.extract_data(tailored_mask)
+            # 数据点映射坐标
+            mapped_data = self.data_mapping(extracted_data,tailored_mask.shape[1],tailored_mask.shape[0])
+        else:
+            QMessageBox.warning(self,"Warning",'Make sure you have selected the frame of the graph, try to hit "Auto" button')
+            return None
         if(_plot):
             self.plot_value()
         # self.add_curve_to_list(mapped_data)
@@ -473,7 +476,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
     def export_data(self):
         filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)")[0]
-        
+        if not os.path.exists(filename):
+            return
         for key,value in self.result_list.items():
             # print(value)
             filename = f"{filename[:-4]}_{key}.txt"
@@ -484,6 +488,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         # try:
         filename=QFileDialog.getOpenFileName(self,'open file')[0]
         # print(filename)
+        if not os.path.exists(filename):
+            return
         self.load_img_from_file(file = filename)
 
     def auto_mode(self):
@@ -511,7 +517,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         if(done):
             self.curve_idx+=1
             data = self.color_extractor(_plot=False)
-            self.add_curve_to_list(data,curve_name)
+            if(data is not None):
+                self.add_curve_to_list(data,curve_name)
 
     def plot_value(self):
         plt.figure(figsize=(5,5))
