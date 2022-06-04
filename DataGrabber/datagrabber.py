@@ -91,7 +91,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.auto_axis.setEnabled(True)
         self.pushButton_picker.setEnabled(True)
         self.pushButton_eraser.setEnabled(True)
-    
+        self.label_img.mousePressEvent = self.get_pos
+
         self.result_list = {}
         self.curve_idx = 0
 
@@ -118,6 +119,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.auto_axis.setEnabled(True)
         self.pushButton_picker.setEnabled(True)
         self.pushButton_eraser.setEnabled(True)
+        self.label_img.mousePressEvent = self.get_pos
         self.result_list = {}
         self.curve_idx = 0
 
@@ -262,10 +264,14 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.system_state = SystemState.POS_RIGHT
 
     def get_pos(self,event):
+        print(self.system_state)
+        if(self.system_state != SystemState.POS_LEFT and self.system_state != SystemState.POS_RIGHT):
+            return
         if(self.system_state == SystemState.POS_LEFT):
             self.pos_left_bottom = (event.pos().x(),event.pos().y())
             print("left {0},{1}".format(event.pos().x(),event.pos().y()))
-        else:
+            self.refresh_img(self.current_img)
+        elif((self.system_state == SystemState.POS_RIGHT)):
             self.pos_right_top = (event.pos().x(),event.pos().y())
             print("right {0}".format(event.pos()))
         self.refresh_img(self.current_img)
