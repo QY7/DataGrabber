@@ -74,6 +74,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.system_state = SystemState.IDLE
         self.pos_left_bottom = [0,0]
         self.pos_right_top = [0,0]
+        self.setting = QSettings(f'{os.path.dirname(__file__)}/.temp', QSettings.IniFormat) 
         
         
     def load_img_from_file(self,file):
@@ -483,7 +484,12 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.label_img.setCursor(QtGui.QCursor(cursor_qmap_scaled,-1,-1))
 
     def export_data(self):
-        filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)")[0]
+        self.last_path = self.setting.value('LastFilePath')
+        if(self.last_path is None):
+            self.last_path = '/'
+        filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)",directory=self.last_path)[0]
+        print(dir)
+        self.setting.setValue('LastFilePath', os.path.dirname(filename))
         if(filename == ''):
             return
         for key,value in self.result_list.items():
@@ -492,6 +498,11 @@ class mywindow(QMainWindow,Ui_MainWindow):
             print(filename)
             savetxt(f"{filename}",value,delimiter=';')
     def export_data_csv(self):
+        self.last_path = self.setting.value('LastFilePath')
+        if(self.last_path is None):
+            self.last_path = '/'
+        print(dir)
+        self.setting.setValue('LastFilePath', os.path.dirname(filename))
         filename=QFileDialog.getSaveFileName(self,'save file',filter="Data files(*.csv)")[0]
         if(filename == ''):
             return
