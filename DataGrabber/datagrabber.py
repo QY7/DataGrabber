@@ -50,7 +50,9 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.pushButton_load.clicked.connect(self.load_img_from_clipboard)
         self.pushButton_add.clicked.connect(self.add_curve)
         self.horizontalSlider_eraser.valueChanged.connect(self.change_eraser)
-        self.actionExport.triggered.connect(self.export_data)
+        self.actionTXT.triggered.connect(self.export_data)
+        self.actionCSV.triggered.connect(self.export_data_csv)
+        # self.menuExport_to_Excel.triggered.connect(self.export_data_excel)
         self.actionImport.triggered.connect(self.import_img)
         # self.setaxis.clicked.connect(self.tailor_img)
         self.leftbottom.clicked.connect(self.set_to_left)
@@ -482,13 +484,22 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
     def export_data(self):
         filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)")[0]
-        if not os.path.exists(filename):
+        if(filename == ''):
             return
         for key,value in self.result_list.items():
             # print(value)
             filename = f"{filename[:-4]}_{key}.txt"
             print(filename)
             savetxt(f"{filename}",value,delimiter=';')
+    def export_data_csv(self):
+        filename=QFileDialog.getSaveFileName(self,'save file',filter="Data files(*.csv)")[0]
+        if(filename == ''):
+            return
+        for key,value in self.result_list.items():
+            # print(value)
+            filename = f"{filename[:-4]}_{key}.csv"
+            print(filename)
+            savetxt(f"{filename}",value,delimiter=',')
 
     def import_img(self):
         # try:
