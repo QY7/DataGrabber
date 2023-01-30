@@ -23,4 +23,4 @@ def find_box(image):
     for c in cnts:
         x,y,w,h = cv2.boundingRect(c)
         # cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 1)
-        return [x,y,w,h]
+        return [x+1,y+1,w-2,h-2]
