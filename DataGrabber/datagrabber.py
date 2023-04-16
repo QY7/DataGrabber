@@ -1,4 +1,4 @@
-# from DataExtractor import DataExtractor,AxisType
+# -*- coding: utf-8 -*-
 from asyncio.windows_events import NULL
 from PIL import Image
 from PIL import ImageGrab
@@ -79,9 +79,10 @@ class mywindow(QMainWindow,Ui_MainWindow):
         
     def load_img_from_file(self,file):
         try:
-            img = cv2.imread(file)
+            img = cv2.imdecode(np.fromfile(file, dtype=np.uint8), cv2.IMREAD_COLOR)
         except:
             print("Error Loading")
+        
         img = self.image_resize(img,height=400)
         self.image_height,self.image_width = img.shape[0:2]
         self.current_img = img
@@ -403,7 +404,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.yaxis_type = AxisType.LINEAR
 
         self.filtered_img = 0
-        self.mask = 0
+        self.mask = []
 
         self.color_set = None
         self.erase_range = 5
@@ -453,13 +454,13 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.read_config()
         [x1,y2] = self.pos_left_bottom
         [x2,y1] = self.pos_right_top
-        if y1 != y2 and x1 != x2:
+        if y1 != y2 and x1 != x2 and len(self.mask):
             tailored_mask = self.mask[y1:y2,x1:x2]
             extracted_data = self.extract_data(tailored_mask)
             # 数据点映射坐标
             mapped_data = self.data_mapping(extracted_data,tailored_mask.shape[1],tailored_mask.shape[0])
         else:
-            QMessageBox.warning(self,"Warning",'Make sure you have selected the frame of the graph, try to hit "Auto" button')
+            QMessageBox.warning(self,"Warning",'1. Make sure you have selected the frame of the graph\n2. Make sure you have use picker to select the graph you want to extract')
             return None
         if(_plot):
             self.plot_value()
@@ -470,6 +471,11 @@ class mywindow(QMainWindow,Ui_MainWindow):
         curve_idx = name
         if curve_idx not in self.result_list.keys():
             self.result_list[curve_idx] = data
+        else:
+            ans = QMessageBox.question(self, "Info", "The name of the curve has existed\nDo you want to overwrite it?", QMessageBox.Yes | QMessageBox.No)
+            if(ans == QMessageBox.Yes):
+                self.result_list[curve_idx] = data
+            
         self.update_info('Curve added')
     def update_cursor(self,filepath,size=40):
         """Update cursor style
@@ -557,7 +563,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
             plt.xscale("log")
         if(self.yaxis_type == AxisType.LOG):
             plt.yscale("log")
-
+        plt.rcParams['font.sans-serif']=['SimHei']###解决中文乱码
+        plt.rcParams['axes.unicode_minus']=False
         plt.xlabel("x")
         plt.ylabel("y")
         plt.title("Extract Data")
