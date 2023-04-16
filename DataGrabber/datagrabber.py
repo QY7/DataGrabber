@@ -75,6 +75,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.pos_left_bottom = [0,0]
         self.pos_right_top = [0,0]
         self.setting = QSettings(f'{os.path.dirname(__file__)}/.temp', QSettings.IniFormat) 
+        self.spacing = 1
         
         
     def load_img_from_file(self,file):
@@ -126,6 +127,10 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.label_img.mousePressEvent = self.get_pos
         self.result_list = {}
         self.curve_idx = 0
+
+    def set_spacing(self):
+        self.spacing = self.horizontalSlider_spacing.value()
+        print(f"Spacing has been set to {self.spacing}")
 
     def image_resize(self,image, width = None, height = None, inter = cv2.INTER_AREA):
         # initialize the dimensions of the image to be resized and
@@ -415,15 +420,18 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
     def data_mapping(self,data,width,height):
         print(width,height)
+        data_spaced_x = data[::self.spacing,0]
+        data_spaced_y = data[::self.spacing,1]
+
         if(self.xaxis_type == AxisType.LINEAR):
-            data[:,0] = data[:,0]/width*(self.endX-self.startX)+self.startX
+            data_spaced_x = data_spaced_x/width*(self.endX-self.startX)+self.startX
         else:
-            data[:,0] = np.power(10,(data[:,0]/width*(np.log10(self.endX)-np.log10(self.startX))+np.log10(self.startX)))
+            data_spaced_x = np.power(10,(data_spaced_x/width*(np.log10(self.endX)-np.log10(self.startX))+np.log10(self.startX)))
         if(self.yaxis_type == AxisType.LINEAR):
-            data[:,1] = data[:,1]/height*(self.endY-self.startY)+self.startY
+            data_spaced_y = data_spaced_y/height*(self.endY-self.startY)+self.startY
         else:
-            data[:,1] = np.power(10,(data[:,1]/height*(np.log10(self.endY)-np.log10(self.startY))+np.log10(self.startY)))
-        return data
+            data_spaced_y = np.power(10,(data_spaced_y/height*(np.log10(self.endY)-np.log10(self.startY))+np.log10(self.startY)))
+        return np.array([data_spaced_x,data_spaced_y]).T
     
     def change_eraser(self):
         self.erase_range = self.horizontalSlider_eraser.value()
@@ -431,10 +439,13 @@ class mywindow(QMainWindow,Ui_MainWindow):
         
 
     def change_morph(self):
-        morph_thresh = self.horizontalSlider_morph.value()
-        
-        self.rm_grid(morph_thresh,grid_width=int(self.image_width*0.8),grid_height=int(self.image_height*0.8))
-        self.update_blender(self.current_img,self.mask)
+        try:
+            morph_thresh = self.horizontalSlider_morph.value()
+            
+            self.rm_grid(morph_thresh,grid_width=int(self.image_width*0.8),grid_height=int(self.image_height*0.8))
+            self.update_blender(self.current_img,self.mask)
+        except AttributeError:
+            return
 
     def color_picker(self):
         self.label_img.mousePressEvent = self.pick_color
