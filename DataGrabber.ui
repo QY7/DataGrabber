@@ -639,10 +639,10 @@ cursor:crosshair;
          <number>100</number>
         </property>
         <property name="singleStep">
-         <number>2</number>
+         <number>1</number>
         </property>
         <property name="value">
-         <number>2</number>
+         <number>1</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -814,7 +814,7 @@ cursor:crosshair;
          </font>
         </property>
         <property name="text">
-         <string>2</string>
+         <string>1</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
