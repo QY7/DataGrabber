@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>740</width>
-    <height>794</height>
+    <height>818</height>
    </rect>
   </property>
   <property name="font">
@@ -37,7 +37,7 @@ font-family:Arial;
 color:#222
 }
 
-#pushButton_load,#pushButton_picker,#pushButton_start,#pushButton_eraser,#pushButton_reset,#pushButton_add
+#pushButton_load,#pushButton_picker,#pushButton_preview,#pushButton_eraser,#pushButton_reset,#pushButton_add
 {
 background:	white;
 font-weight:bold;
@@ -45,7 +45,7 @@ font-size:15px;
 border-radius:5px;
 font-family:Arial;
 }
-#pushButton_load:hover,#pushButton_picker:hover,#pushButton_start:hover,#pushButton_reset:hover,#pushButton_add:hover,#pushButton_eraser:hover{
+#pushButton_load:hover,#pushButton_picker:hover,#pushButton_preview:hover,#pushButton_reset:hover,#pushButton_add:hover,#pushButton_eraser:hover{
 background:	orange;
 }
 QLineEdit{
@@ -624,95 +624,6 @@ cursor:crosshair;
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QSlider" name="horizontalSlider_spacing">
-        <property name="toolTip">
-         <string extracomment="测试">Adjust the steps(by pixel) to extract data </string>
-        </property>
-        <property name="whatsThis">
-         <string extracomment="测试"/>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="singleStep">
-         <number>1</number>
-        </property>
-        <property name="value">
-         <number>1</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Spacing</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="horizontalSlider_morph">
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>1000</number>
-        </property>
-        <property name="value">
-         <number>20</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Morph size</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="2">
        <widget class="QLabel" name="label_8">
         <property name="sizePolicy">
@@ -749,24 +660,12 @@ cursor:crosshair;
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="label_9">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_7">
         <property name="minimumSize">
          <size>
-          <width>40</width>
+          <width>80</width>
           <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>40</width>
-          <height>16777215</height>
          </size>
         </property>
         <property name="font">
@@ -778,14 +677,39 @@ cursor:crosshair;
          </font>
         </property>
         <property name="text">
-         <string>20</string>
+         <string>Spacing</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
+      <item row="2" column="1">
+       <widget class="QSlider" name="horizontalSlider_spacing">
+        <property name="toolTip">
+         <string extracomment="测试">Adjust the steps(by pixel) to extract data </string>
+        </property>
+        <property name="whatsThis">
+         <string extracomment="测试"/>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="singleStep">
+         <number>1</number>
+        </property>
+        <property name="value">
+         <number>1</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
        <widget class="QLabel" name="label_10">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -994,7 +918,7 @@ cursor:crosshair;
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_start">
+       <widget class="QPushButton" name="pushButton_preview">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>5</horstretch>
@@ -1129,22 +1053,6 @@ cursor:crosshair;
     <hint type="destinationlabel">
      <x>715</x>
      <y>710</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSlider_morph</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>label_9</receiver>
-   <slot>setNum(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>645</x>
-     <y>691</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>707</x>
-     <y>689</y>
     </hint>
    </hints>
   </connection>

@@ -1,3 +1,4 @@
-from DataGrabber.datagrabber import datagrabber
+# -*- coding: utf-8 -*-
+from DataGrabber.launcher import datagrabber
 
 datagrabber()
