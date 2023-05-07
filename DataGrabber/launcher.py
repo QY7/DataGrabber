@@ -26,10 +26,10 @@ def datagrabber():
     keyboard.on_press(window.keyboardEventReceived)
     window.setWindowTitle("DataGrabber")
     window.setWindowIcon(QIcon(ICON_LOGO))
-    sys.excepthook = excepthook
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
+    sys.excepthook = excepthook
     try:
         datagrabber()
     except Exception as e:

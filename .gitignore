@@ -7,3 +7,4 @@ get-pip.py
 output
 *.pyc
 __pycache__
+*.log
