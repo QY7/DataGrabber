@@ -63,7 +63,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.spacing = 1
         self.has_frame = False
         self.has_mask = None
-        with open(f"{_root_path}/config.json",'r') as f:
+        with open(f"./config.json",'r') as f:
             self.system_config = json.load(f)
         
     def load_img_from_file(self,file):
