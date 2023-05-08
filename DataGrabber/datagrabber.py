@@ -508,7 +508,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         plt.rcParams['axes.unicode_minus']=False
         plt.xlabel("x")
         plt.ylabel("y")
-        plt.title("Extract Data")
+        plt.title("Extracted Data")
         plt.grid(True,which='both',ls='--')
         plt.legend(self.result_list.keys())
         plt.xlim([self.startX,self.endX])
