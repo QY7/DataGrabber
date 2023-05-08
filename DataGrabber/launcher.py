@@ -7,16 +7,7 @@ import sys
 from .datagrabber import mywindow
 import keyboard
 from .datagrabber import ICON_LOGO
-import traceback
 
-def excepthook(exc_type, exc_value, traceback_obj):
-    # 将异常信息输出到控制台
-    traceback.print_exception(exc_type, exc_value, traceback_obj)
-
-    # 保存异常信息到文件
-    with open("error.log", "a") as f:
-        f.write("=" * 80 + "\n")
-        traceback.print_exception(exc_type, exc_value, traceback_obj, file=f)
 
 def datagrabber():
     app = QApplication(sys.argv)
@@ -29,7 +20,7 @@ def datagrabber():
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    sys.excepthook = excepthook
+    
     try:
         datagrabber()
     except Exception as e:

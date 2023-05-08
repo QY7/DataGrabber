@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './DataGrabber.ui'
+# Form implementation generated from reading ui file './DataGrabber_fix_n1.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -187,7 +187,6 @@ class Ui_MainWindow(object):
         self.checkBox_logx.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.checkBox_logx.setFont(font)
@@ -272,7 +271,6 @@ class Ui_MainWindow(object):
         self.checkBox_logy.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.checkBox_logy.setFont(font)
@@ -378,7 +376,6 @@ class Ui_MainWindow(object):
         self.pushButton_load.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_load.setFont(font)
@@ -394,7 +391,6 @@ class Ui_MainWindow(object):
         self.pushButton_picker.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_picker.setFont(font)
@@ -410,7 +406,6 @@ class Ui_MainWindow(object):
         self.pushButton_eraser.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_eraser.setFont(font)
@@ -426,7 +421,6 @@ class Ui_MainWindow(object):
         self.pushButton_add.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_add.setFont(font)
@@ -442,7 +436,6 @@ class Ui_MainWindow(object):
         self.pushButton_preview.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.pushButton_preview.setFont(font)

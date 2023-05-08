@@ -77,10 +77,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.spacing = 1
         self.has_frame = False
         self.has_mask = None
-        print(f"{_root_path}/config.json")
         with open(f"{_root_path}/config.json",'r') as f:
             self.system_config = json.load(f)
-        print(self.system_config)
         
     def load_img_from_file(self,file):
         try:
@@ -236,11 +234,13 @@ class mywindow(QMainWindow,Ui_MainWindow):
     def set_to_left(self,event):
         self.has_frame = True
         self.label_img.unsetCursor()
+        self.label_img.mousePressEvent = self.get_pos
         self.system_state = SystemState.POS_LEFT
 
     def set_to_right(self,event):
         self.has_frame = True
         self.label_img.unsetCursor()
+        self.label_img.mousePressEvent = self.get_pos
         self.system_state = SystemState.POS_RIGHT
 
     def get_pos(self,event):
@@ -413,7 +413,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.system_state = SystemState.ERASING
 
     def color_extractor(self):
-        self.read_config()
+        if(not self.read_config()):
+            return
         [x1,y2] = self.pos_left_bottom
         [x2,y1] = self.pos_right_top
         if y1 != y2 and x1 != x2 and len(self.mask):
@@ -469,9 +470,9 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.last_path = self.setting.value('LastFilePath')
         if(self.last_path is None):
             self.last_path = '/'
-
-        self.setting.setValue('LastFilePath', os.path.dirname(filename))
+        
         filename=QFileDialog.getSaveFileName(self,'save file',filter="Data files(*.csv)")[0]
+        self.setting.setValue('LastFilePath', os.path.dirname(filename))
         if(filename == ''):
             return
         for key,value in self.result_list.items():
