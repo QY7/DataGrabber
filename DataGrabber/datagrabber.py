@@ -17,6 +17,7 @@ import os
 from .find_contour import find_box
 import json
 from DataGrabber import _root_path
+from DataGrabber.local_log import log_print
 
 def get_path(filename):
     if hasattr(sys, "_MEIPASS"):
@@ -27,6 +28,7 @@ def get_path(filename):
 ICON_PICKER = get_path('picker.png')
 ICON_ERASER = get_path('eraser_rect.png')
 ICON_LOGO = get_path('logo.ico')
+
 class AxisType(Enum):
     LINEAR = 1
     LOG = 2
@@ -43,33 +45,17 @@ class mywindow(QMainWindow,Ui_MainWindow):
         super(mywindow,self).__init__()
         self.setupUi(self)
         self.init_params()
-        self.auto_box = False
-        self.pushButton_preview.clicked.connect(self.plot_value)
-        self.pushButton_picker.clicked.connect(self.color_picker)
-        self.pushButton_eraser.clicked.connect(self.eraser)
-        self.pushButton_load.clicked.connect(self.load_img_from_clipboard)
-        self.pushButton_add.clicked.connect(self.add_curve)
-        self.horizontalSlider_eraser.valueChanged.connect(self.change_eraser)
         self.actionTXT.triggered.connect(self.export_data)
         self.actionCSV.triggered.connect(self.export_data_csv)
-        # self.menuExport_to_Excel.triggered.connect(self.export_data_excel)
         self.actionImport.triggered.connect(self.import_img)
-        # self.setaxis.clicked.connect(self.tailor_img)
-        self.leftbottom.clicked.connect(self.set_to_left)
-        self.righttop.clicked.connect(self.set_to_right)
         self.label_img.mousePressEvent = self.get_pos
-        self.auto_axis.clicked.connect(self.auto_mode)
         self.label_img.mouseMoveEvent = self.erasing
-
         self.pushButton_eraser.setEnabled(False)
         self.pushButton_picker.setEnabled(False)
         self.pushButton_preview.setEnabled(True)
         self.leftbottom.setEnabled(False)
         self.righttop.setEnabled(False)
         self.auto_axis.setEnabled(False)
-        # self.setaxis.setEnabled(False)
-        # self.Eraser_size.valueChanged.connect(self.eraser_size_change)
-        # self.Grid_size.valueChanged.connect(self.grid_size_change)
         
         self.pos_left_bottom = [0,0]
         self.pos_right_top = [0,0]
@@ -84,7 +70,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         try:
             img = cv2.imdecode(np.fromfile(file, dtype=np.uint8), cv2.IMREAD_COLOR)
         except:
-            print("Error Loading")
+            log_print("Error Loading")
         
         img = self.image_resize(img)
         self.image_height,self.image_width = img.shape[0:2]
@@ -98,7 +84,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
             img_raw = ImageGrab.grabclipboard()
             img_cvted = cv2.cvtColor(np.array(img_raw),cv2.COLOR_RGB2BGR)
         except TypeError as e:
-            print(e)
+            log_print(e)
             return
         except:
             return
@@ -123,18 +109,15 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
         # restore the mousepress on image to position get
         self.label_img.mousePressEvent = self.get_pos
-
         self.result_list = {}
         self.curve_idx = 0
         self.has_frame = False
         self.has_mask = False
-
         self.system_state = SystemState.IDLE
-
+        self.color_set = None
 
     def set_spacing(self):
         self.spacing = self.horizontalSlider_spacing.value()
-        print(f"Spacing has been set to {self.spacing}")
 
     def image_resize(self,image):
         # initialize the dimensions of the image to be resized and
@@ -155,19 +138,13 @@ class mywindow(QMainWindow,Ui_MainWindow):
         # return the resized image
         return resized
         
-    def set_color(self,color):
+    def refresh_color_label(self,color):
         """将pick的颜色在显示区域显示
 
         Args:
             color ([type]): [description]
         """
         self.color_preview.setStyleSheet(f'QPushButton {{background-color: {color};}}')
-
-    def update_blender(self):
-        """融合self.mask和self.img，并加以显示
-        """
-        
-        self.refresh_img()
 
     def read_config(self):
         """读取panel设置
@@ -209,7 +186,6 @@ class mywindow(QMainWindow,Ui_MainWindow):
         bytesPerLine = 3 * width
         img_to_show = self.current_img.copy()
 
-
         # If color mask existed, add mask to it
         if(self.has_mask):
             if(self.mask.ndim==2):
@@ -244,32 +220,29 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.system_state = SystemState.POS_RIGHT
 
     def get_pos(self,event):
-        print(self.system_state)
         if(self.system_state != SystemState.POS_LEFT and self.system_state != SystemState.POS_RIGHT):
             return
         if(self.system_state == SystemState.POS_LEFT):
             self.pos_left_bottom = (event.pos().x(),event.pos().y())
-            print("left {0},{1}".format(event.pos().x(),event.pos().y()))
+            log_print("left {0},{1}".format(event.pos().x(),event.pos().y()))
             self.refresh_img()
         elif((self.system_state == SystemState.POS_RIGHT)):
             self.pos_right_top = (event.pos().x(),event.pos().y())
-            print("right {0}".format(event.pos()))
+            log_print("right {0}".format(event.pos()))
         self.refresh_img()
 
-    def set_fuzzy_color_range(self,pixdata):
-        """根据pixdata获取一个这个颜色附近的区间
-
-        Args:
-            pixdata (np.array BGR): BGR color
+    def set_fuzzy_color_range(self):
+        """update color range according to selected color_set
         """
-        color = cv2.cvtColor(np.uint8([[pixdata]]),cv2.COLOR_BGR2HSV)
-        color_pixel = color[0][0]
-        # print(color)
+        if(self.color_set is not None):
+            color = cv2.cvtColor(np.uint8([[self.color_set]]),cv2.COLOR_BGR2HSV)
+            color_pixel = color[0][0]
+            log_print(color)
 
-        self.lower_color_lim = array([color_pixel[0]-10,color_pixel[1]-50,color_pixel[2]-20])
-        self.higher_color_lim = array([color_pixel[0]+10,color_pixel[1]+50,color_pixel[2]+20])
+            self.lower_color_lim = array([color_pixel[0]-10,color_pixel[1]-50,color_pixel[2]-20])
+            self.higher_color_lim = array([color_pixel[0]+10,color_pixel[1]+50,color_pixel[2]+20])
 
-    def get_color_mask(self,img):
+    def get_color_mask(self):
         """根据颜色的范围获取mask
 
         Args:
@@ -278,7 +251,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         Returns:
             [type]: [description]
         """
-        hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+        self.set_fuzzy_color_range()
+        hsv = cv2.cvtColor(self.current_img,cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv,self.lower_color_lim,self.higher_color_lim)
         return mask
 
@@ -294,7 +268,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
             # 首先获取x,y的坐标位置
             x = event.pos().x()
             y = event.pos().y()
-            # print(f"Erasing! at [{x},{y}]")
+            # log_print(f"Erasing! at [{x},{y}]")
             if(x<0):
                 x = 0
             elif (x>=self.image_width-1):
@@ -317,7 +291,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
             # 更新mask
             self.mask[y_range_up:y_range_down,x_range_left:x_range_right]=0
             # 更新显示的图
-            self.update_blender()
+            self.refresh_img()
 
     def extract_data(self,data):
         result = []
@@ -331,30 +305,32 @@ class mywindow(QMainWindow,Ui_MainWindow):
             if(255 in data[:,i]):
                 ldx = curve_range_height-np.median(np.argwhere(data[:,i]==255))
                 result.append([i,ldx])
-        # print(array(result))
+        # log_print(array(result))
         return array(result)
 
     def pick_color(self,event):
         if(self.system_state == SystemState.PICKING_COLOR):
             x = event.pos().x()
             y = event.pos().y()
-            self.color_set = self.current_img[y][x]
             self.pushButton_preview.setEnabled(True)
             self.pushButton_eraser.setEnabled(True)
+            self.color_set = self.current_img[y][x]
+
+            # convert color set to hex
             color = '#'
             color += str(hex(self.color_set[2]))[-2:].replace('x', '0').upper()
             color += str(hex(self.color_set[1]))[-2:].replace('x', '0').upper()
             color += str(hex(self.color_set[0]))[-2:].replace('x', '0').upper()
-            self.set_color(color)
-            self.color_set_hex = color
-            print("当前选择颜色为:")
-            print(self.color_set)
+
+            self.refresh_color_label(color)
+
             # 设置当前的颜色选择范围
-            self.set_fuzzy_color_range(self.color_set)
-            self.mask = self.get_color_mask(self.current_img)
+            self.mask = self.get_color_mask()
             self.has_mask = True
-            self.update_blender()
-            self.pushButton_preview.setEnabled(True)
+            self.refresh_img()
+
+            log_print("当前选择颜色为:")
+            log_print(self.color_set)
 
     def init_params(self):
         self.label_img.unsetCursor()
@@ -403,7 +379,6 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.system_state = SystemState.PICKING_COLOR
         self.label_info.setText("Pick color")
         
-        
     def update_info(self,msg):
         self.label_info.setText(msg)
 
@@ -438,6 +413,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
                 self.result_list[curve_idx] = data
             
         self.update_info('Curve added')
+        self.pushButton_preview.setEnabled(True)
 
     def update_cursor(self,filepath,size=40):
         """Update cursor style
@@ -456,14 +432,14 @@ class mywindow(QMainWindow,Ui_MainWindow):
         if(self.last_path is None):
             self.last_path = '/'
         filename=QFileDialog.getSaveFileName(self,'save file',filter="Txt files(*.txt)",directory=self.last_path)[0]
-        print(dir)
+        log_print(dir)
         self.setting.setValue('LastFilePath', os.path.dirname(filename))
         if(filename == ''):
             return
         for key,value in self.result_list.items():
-            # print(value)
+            # log_print(value)
             filename = f"{filename[:-4]}_{key}.txt"
-            print(filename)
+            log_print(filename)
             savetxt(f"{filename}",value,delimiter=';')
 
     def export_data_csv(self):
@@ -476,15 +452,15 @@ class mywindow(QMainWindow,Ui_MainWindow):
         if(filename == ''):
             return
         for key,value in self.result_list.items():
-            # print(value)
+            # log_print(value)
             filename = f"{filename[:-4]}_{key}.csv"
-            print(filename)
+            log_print(filename)
             savetxt(f"{filename}",value,delimiter=',')
 
     def import_img(self):
         # try:
         filename=QFileDialog.getOpenFileName(self,'open file')[0]
-        # print(filename)
+        # log_print(filename)
         if not os.path.exists(filename):
             return
         self.load_img_from_file(file = filename)
@@ -505,11 +481,11 @@ class mywindow(QMainWindow,Ui_MainWindow):
             if event.name == '[':
                 current_value = self.horizontalSlider_eraser.value()
                 self.horizontalSlider_eraser.setProperty("value", current_value-1)
-                print('[ pressed')
+                log_print('[ pressed')
             elif event.name == ']':
                 current_value = self.horizontalSlider_eraser.value()
                 self.horizontalSlider_eraser.setProperty("value", current_value+1)
-                print('] pressed')
+                log_print('] pressed')
 
     def add_curve(self):
         curve_name,done = QtWidgets.QInputDialog.getText(self, 'Info', "Input curve name")
@@ -519,7 +495,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
             if(data is not None):
                 self.add_curve_to_list(data,curve_name)
 
-    def plot_value(self):
+    def preview_plot(self):
         plt.figure(figsize=(5,5))
         for data in self.result_list.values():
             plt.plot(data[:,0],data[:,1],"-",linewidth=2)
@@ -535,5 +511,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
         plt.title("Extract Data")
         plt.grid(True,which='both',ls='--')
         plt.legend(self.result_list.keys())
+        plt.xlim([self.startX,self.endX])
+        plt.ylim([self.startY,self.endY])
         plt.show()
 

@@ -1031,8 +1031,8 @@ cursor:crosshair;
    <slot>set_spacing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>481</x>
-     <y>711</y>
+     <x>577</x>
+     <y>736</y>
     </hint>
     <hint type="destinationlabel">
      <x>477</x>
@@ -1047,12 +1047,12 @@ cursor:crosshair;
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>608</x>
-     <y>710</y>
+     <x>683</x>
+     <y>736</y>
     </hint>
     <hint type="destinationlabel">
-     <x>715</x>
-     <y>710</y>
+     <x>729</x>
+     <y>738</y>
     </hint>
    </hints>
   </connection>
@@ -1063,17 +1063,170 @@ cursor:crosshair;
    <slot>setNum(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>660</x>
-     <y>666</y>
+     <x>683</x>
+     <y>715</y>
     </hint>
     <hint type="destinationlabel">
-     <x>705</x>
-     <y>665</y>
+     <x>729</x>
+     <y>717</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_preview</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>preview_plot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>652</x>
+     <y>773</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>794</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_picker</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>color_picker()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>773</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>794</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_eraser</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>eraser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>412</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>790</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_add</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_curve()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>520</x>
+     <y>759</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>794</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_load</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>load_img_from_clipboard()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>772</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>791</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_eraser</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>change_eraser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>707</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>17</x>
+     <y>695</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>leftbottom</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_to_left()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>114</x>
+     <y>593</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>19</x>
+     <y>619</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>righttop</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>set_to_right()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>594</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>315</x>
+     <y>622</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>auto_axis</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>auto_mode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>598</x>
+     <y>586</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>652</x>
+     <y>625</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>set_spacing()</slot>
+  <slot>preview_plot()</slot>
+  <slot>color_picker()</slot>
+  <slot>eraser()</slot>
+  <slot>add_curve()</slot>
+  <slot>load_img_from_clipboard()</slot>
+  <slot>change_eraser()</slot>
+  <slot>set_to_left()</slot>
+  <slot>set_to_right()</slot>
+  <slot>auto_mode()</slot>
  </slots>
 </ui>

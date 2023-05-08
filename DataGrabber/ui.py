@@ -483,6 +483,15 @@ class Ui_MainWindow(object):
         self.horizontalSlider_spacing.sliderReleased.connect(MainWindow.set_spacing)
         self.horizontalSlider_spacing.valueChanged['int'].connect(self.label_10.setNum)
         self.horizontalSlider_eraser.valueChanged['int'].connect(self.label_8.setNum)
+        self.pushButton_preview.clicked.connect(MainWindow.preview_plot)
+        self.pushButton_picker.clicked.connect(MainWindow.color_picker)
+        self.pushButton_eraser.clicked.connect(MainWindow.eraser)
+        self.pushButton_add.clicked.connect(MainWindow.add_curve)
+        self.pushButton_load.clicked.connect(MainWindow.load_img_from_clipboard)
+        self.horizontalSlider_eraser.valueChanged['int'].connect(MainWindow.change_eraser)
+        self.leftbottom.clicked.connect(MainWindow.set_to_left)
+        self.righttop.clicked.connect(MainWindow.set_to_right)
+        self.auto_axis.clicked.connect(MainWindow.auto_mode)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
