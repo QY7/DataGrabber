@@ -5,6 +5,11 @@ DataGrabber is a tool based on opencv to help you extract data from graph and th
 ![DataGrabber2](https://user-images.githubusercontent.com/15251079/167558979-57febdde-781a-44d8-80dc-b303473ce44e.gif)
 
 ## method to use
+**Step. 0 Start this program**
+This program can be start in the command line by using this line below.
+```bash
+python main.py
+```
 
 **Step. 1 Load graph and input the axis information**
 
