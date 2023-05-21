@@ -79,6 +79,10 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
         self.reset_state()
         self.refresh_img()
+        self.adjustSize()
+        self.move_to_center()
+        self.adjustSize()
+        self.move_to_center()
 
     def load_img_from_clipboard(self):
         try:
@@ -99,16 +103,21 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
         self.reset_state()
         self.refresh_img()
+        
         self.adjustSize()
+        self.move_to_center()
+        self.adjustSize()
+        self.move_to_center()
+    
+    def move_to_center(self):
         self.app.processEvents()
         screen = QDesktopWidget().screenGeometry()
         size = self.geometry()
-        
         newLeft = int((screen.width() - size.width()) / 2)
         newTop = int((screen.height() - size.height()) / 2)
         
         self.move(newLeft,newTop)
-        
+
     def reset_state(self):
         self.label_info.setText("Fill in axis and set axis")
         self.leftbottom.setEnabled(True)
