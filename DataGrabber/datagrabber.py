@@ -103,10 +103,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
         self.reset_state()
         self.refresh_img()
-        
-        self.adjustSize()
-        self.move_to_center()
-        self.adjustSize()
+        self.app.processEvents()
         self.move_to_center()
     
     def move_to_center(self):
