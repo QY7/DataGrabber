@@ -98,6 +98,7 @@ class mywindow(QMainWindow,Ui_MainWindow):
 
         self.reset_state()
         self.refresh_img()
+        self.adjustSize()
 
     def reset_state(self):
         self.label_info.setText("Fill in axis and set axis")
@@ -125,12 +126,8 @@ class mywindow(QMainWindow,Ui_MainWindow):
         dim = None
         (h, w) = image.shape[:2]
         # Maximum height should be 500 and maximum width should be 1000
-        if(w / h > 2):
-            _width = self.system_config["max_width"]
-            _height = int(_width/w*h)
-        else:
-            _height = self.system_config["max_height"]
-            _width = int(_height/h*w)
+        _height = int(self.horizontalSlider_height.value())
+        _width = int(_height/h*w)
 
         dim = (_width,_height)
         # resize the image

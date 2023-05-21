@@ -578,28 +578,6 @@ cursor:crosshair;
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="1">
-       <widget class="QSlider" name="horizontalSlider_eraser">
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="value">
-         <number>20</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="invertedAppearance">
-         <bool>false</bool>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::NoTicks</enum>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label">
         <property name="minimumSize">
@@ -654,30 +632,6 @@ cursor:crosshair;
         </property>
         <property name="text">
          <string>20</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Spacing</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -739,6 +693,137 @@ cursor:crosshair;
         </property>
         <property name="text">
          <string>1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSlider" name="horizontalSlider_eraser">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>20</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Spacing</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSlider" name="horizontalSlider_height">
+        <property name="toolTip">
+         <string extracomment="测试">Adjust the steps(by pixel) to extract data </string>
+        </property>
+        <property name="whatsThis">
+         <string extracomment="测试"/>
+        </property>
+        <property name="minimum">
+         <number>100</number>
+        </property>
+        <property name="maximum">
+         <number>2000</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_9">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Height</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="label_11">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>800</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -1031,8 +1116,8 @@ cursor:crosshair;
    <slot>set_spacing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>577</x>
-     <y>736</y>
+     <x>673</x>
+     <y>716</y>
     </hint>
     <hint type="destinationlabel">
      <x>477</x>
@@ -1048,11 +1133,11 @@ cursor:crosshair;
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>736</y>
+     <y>716</y>
     </hint>
     <hint type="destinationlabel">
      <x>729</x>
-     <y>738</y>
+     <y>718</y>
     </hint>
    </hints>
   </connection>
@@ -1064,11 +1149,11 @@ cursor:crosshair;
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>715</y>
+     <y>695</y>
     </hint>
     <hint type="destinationlabel">
      <x>729</x>
-     <y>717</y>
+     <y>697</y>
     </hint>
    </hints>
   </connection>
@@ -1159,8 +1244,8 @@ cursor:crosshair;
    <slot>change_eraser()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>209</x>
-     <y>707</y>
+     <x>305</x>
+     <y>695</y>
     </hint>
     <hint type="destinationlabel">
      <x>17</x>
@@ -1213,6 +1298,22 @@ cursor:crosshair;
     <hint type="destinationlabel">
      <x>652</x>
      <y>625</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider_height</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>label_11</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>594</x>
+     <y>730</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>721</x>
+     <y>734</y>
     </hint>
    </hints>
   </connection>
