@@ -109,10 +109,6 @@ class mywindow(QMainWindow,Ui_MainWindow):
         
         self.move(newLeft,newTop)
         
-        print([screen.width(),size.width()])
-        print([screen.height(),size.height()])
-        print([newLeft,newTop])
-        
     def reset_state(self):
         self.label_info.setText("Fill in axis and set axis")
         self.leftbottom.setEnabled(True)
