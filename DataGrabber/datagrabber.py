@@ -41,8 +41,9 @@ class SystemState(Enum):
     POS_RIGHT = 4
 
 class mywindow(QMainWindow,Ui_MainWindow):
-    def __init__(self):
+    def __init__(self,app):
         super(mywindow,self).__init__()
+        self.app = app
         self.setupUi(self)
         self.init_params()
         self.actionTXT.triggered.connect(self.export_data)
@@ -99,7 +100,19 @@ class mywindow(QMainWindow,Ui_MainWindow):
         self.reset_state()
         self.refresh_img()
         self.adjustSize()
-
+        self.app.processEvents()
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        
+        newLeft = int((screen.width() - size.width()) / 2)
+        newTop = int((screen.height() - size.height()) / 2)
+        
+        self.move(newLeft,newTop)
+        
+        print([screen.width(),size.width()])
+        print([screen.height(),size.height()])
+        print([newLeft,newTop])
+        
     def reset_state(self):
         self.label_info.setText("Fill in axis and set axis")
         self.leftbottom.setEnabled(True)

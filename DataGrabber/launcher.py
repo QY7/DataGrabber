@@ -12,7 +12,7 @@ from .datagrabber import ICON_LOGO
 def datagrabber():
     app = QApplication(sys.argv)
     #MainWindow = QMainWindow()
-    window = mywindow()
+    window = mywindow(app)
     window.show()
     keyboard.on_press(window.keyboardEventReceived)
     window.setWindowTitle("DataGrabber")
