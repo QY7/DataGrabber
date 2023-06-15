@@ -1,0 +1,15 @@
+README.md
+setup.py
+src/DataGrabber/Datagrabber_rc.py
+src/DataGrabber/__init__.py
+src/DataGrabber/datagrabber.py
+src/DataGrabber/find_contour.py
+src/DataGrabber/launcher.py
+src/DataGrabber/local_log.py
+src/DataGrabber/ui.py
+src/datagrabber.egg-info/PKG-INFO
+src/datagrabber.egg-info/SOURCES.txt
+src/datagrabber.egg-info/dependency_links.txt
+src/datagrabber.egg-info/entry_points.txt
+src/datagrabber.egg-info/top_level.txt
+src/datagrabber.egg-info/zip-safe

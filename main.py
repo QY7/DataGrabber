@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from DataGrabber.launcher import datagrabber
+from src.DataGrabber.launcher import datagrabber
 import traceback
 import sys
 

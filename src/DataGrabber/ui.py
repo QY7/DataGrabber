@@ -576,4 +576,4 @@ class Ui_MainWindow(object):
         self.actionTXT.setText(_translate("MainWindow", "TXT"))
         self.actionExcel.setText(_translate("MainWindow", "Excel"))
         self.actionCSV.setText(_translate("MainWindow", "CSV"))
-import Datagrabber_rc
+from . import Datagrabber_rc
