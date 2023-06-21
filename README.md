@@ -36,3 +36,6 @@ Click file->export to export your data.
 
 Have fun!
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=QY7/DataGrabber&type=Date)](https://star-history.com/#QY7/DataGrabber&Date)
