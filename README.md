@@ -36,6 +36,3 @@ Click file->export to export your data.
 
 Have fun!
 
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=vtuber-plan/langport&type=Date)](https://star-history.com/#vtuber-plan/langport&Date)
